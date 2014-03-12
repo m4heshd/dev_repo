@@ -350,7 +350,7 @@ ev_sidebar_init (EvSidebar *ev_sidebar)
 	/* top option menu */
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	ev_sidebar->priv->hbox = hbox;
-	gtk_box_pack_start (GTK_BOX (ev_sidebar), hbox, FALSE, FALSE, 50);
+	gtk_box_pack_start (GTK_BOX (ev_sidebar), hbox, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
 
 	ev_sidebar->priv->select_button = gtk_toggle_button_new ();
