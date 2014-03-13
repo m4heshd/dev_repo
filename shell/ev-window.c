@@ -387,11 +387,15 @@ static gchar *nautilus_sendto = NULL;
 
 G_DEFINE_TYPE (EvWindow, ev_window, GTK_TYPE_APPLICATION_WINDOW)
 
-int w_w,w_h;
+int w_w,w_w2,w_h,w_h2;
 
 void getsize_widget_size(GtkWidget *widget, GtkAllocation *allocation, void *data) {
     w_w = allocation->width;
     w_h = allocation->height;
+}
+void getsize_widget_size2(GtkWidget *widget, GtkAllocation *allocation, void *data) {
+    w_w2 = allocation->width;
+    w_h2 = allocation->height;
 }
 
 static gdouble
@@ -5153,7 +5157,7 @@ ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 
     gtk_paned_pack1 (GTK_PANED (ev_window->priv->hpaned),
 			 ev_window->priv->sidebar, FALSE, FALSE);
-
+            gtk_widget_set_size_request(ev_window->priv->sidebar, w_w2, w_h2);
 	gtk_widget_show (ev_window->priv->sidebar);
 
     gtk_paned_add2 (GTK_PANED (ev_window->priv->hpaned),
@@ -7683,7 +7687,7 @@ ev_window_init (EvWindow *ev_window)
 
 	/* Get sizes of the widgets */
 	g_signal_connect(ev_window->priv->view_box, "size-allocate", G_CALLBACK(getsize_widget_size), NULL);
-
+	g_signal_connect(ev_window->priv->sidebar, "size-allocate", G_CALLBACK(getsize_widget_size2), NULL);
 
 	g_signal_connect_swapped (ev_window->priv->model,
 				  "page-changed",
