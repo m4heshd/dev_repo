@@ -7578,7 +7578,7 @@ ev_window_init (EvWindow *ev_window)
 			    TRUE, TRUE, 0);
 	gtk_widget_show (overlay);
 
-	gtk_paned_add2 (GTK_PANED (ev_window->priv->hpaned),
+	gtk_paned_add1 (GTK_PANED (ev_window->priv->hpaned),
 			ev_window->priv->view_box);
 	gtk_widget_show (ev_window->priv->view_box);
 
