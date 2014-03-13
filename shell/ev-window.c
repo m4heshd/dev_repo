@@ -5137,19 +5137,20 @@ ev_window_view_sidebar_cb (GtkAction *action, EvWindow *ev_window)
 static void
 ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 {
-    gtk_widget_destroy (ev_window->priv->sidebar);
-    gtk_widget_destroy (ev_window->priv->view_box);
+    g_object_ref (ev_window->priv->sidebar);
+    g_object_ref (ev_window->priv->view_box);
 
-    gtk_paned_pack2 (GTK_PANED (ev_window->priv->hpaned),
+    gtk_container_remove (GTK_PANED (ev_window->priv->hpaned),ev_window->priv->sidebar);
+    gtk_container_remove (GTK_PANED (ev_window->priv->hpaned),ev_window->priv->view_box);
+
+    gtk_paned_pack1 (GTK_PANED (ev_window->priv->hpaned),
 			 ev_window->priv->sidebar, FALSE, FALSE);
 	gtk_widget_show (ev_window->priv->sidebar);
 
-    gtk_paned_add1 (GTK_PANED (ev_window->priv->hpaned),
+    gtk_paned_add2 (GTK_PANED (ev_window->priv->hpaned),
 			ev_window->priv->view_box);
 	gtk_widget_show (ev_window->priv->view_box);
 
-    g_settings_get_boolean (ev_window->priv->settings, GS_AUTO_RELOAD);
-    ev_window_reload_document (ev_window, NULL);
 
 }
 
