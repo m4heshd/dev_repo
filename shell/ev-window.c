@@ -7477,7 +7477,7 @@ ev_window_init (EvWindow *ev_window)
 	ev_sidebar_set_model (EV_SIDEBAR (ev_window->priv->sidebar),
 			      ev_window->priv->model);
 	gtk_paned_pack2 (GTK_PANED (ev_window->priv->hpaned),
-			 ev_window->priv->sidebar, FALSE, FALSE);
+			 ev_window->priv->sidebar, TRUE, TRUE);
 	gtk_widget_show (ev_window->priv->sidebar);
 
 	/* Stub sidebar, for now */
