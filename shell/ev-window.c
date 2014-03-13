@@ -6156,10 +6156,10 @@ static const GtkActionEntry entries[] = {
 
         /* Side Pane Controls*/
         { "PanePosition", NULL, N_("Se_t Side Pane Position") },
-        { "PaneLeft", NULL, N_("_Left"), NULL,
+        { "PaneLeft", NULL, N_("_Left"), "<shift><control>L",
         N_("Set Side Pane position to the Left"),
         G_CALLBACK (ev_window_view_sidebar_left) },
-        { "PaneRight", NULL, N_("_Right"), NULL,
+        { "PaneRight", NULL, N_("_Right"), "<shift><control>R",
         N_("Set Side Pane position to the Right"),
         G_CALLBACK (ev_window_view_sidebar_right) },
 
@@ -6252,6 +6252,7 @@ static const GtkActionEntry entries[] = {
 	  G_CALLBACK (ev_window_cmd_action_menu) },
 	{ "F7", NULL, "", "F7", NULL,
 	  G_CALLBACK (ev_window_cmd_view_toggle_caret_navigation) },
+
 };
 
 /* Toggle items */
