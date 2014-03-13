@@ -424,7 +424,7 @@ ev_sidebar_new (void)
 	ev_sidebar = g_object_new (EV_TYPE_SIDEBAR,
                                    "orientation", GTK_ORIENTATION_VERTICAL,
 				   NULL);
-    gtk_widget_set_size_request(ev_sidebar, 500, 500);
+
 
 	return ev_sidebar;
 }

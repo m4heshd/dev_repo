@@ -1107,7 +1107,7 @@ setup_sidebar_from_metadata (EvWindow *window)
 		return;
 
 	if (ev_metadata_get_int (window->priv->metadata, "sidebar_size", &sidebar_size))
-		gtk_paned_set_position (GTK_PANED (window->priv->hpaned), 0);
+		gtk_paned_set_position (GTK_PANED (window->priv->hpaned), sidebar_size);
 
 	if (ev_metadata_get_string (window->priv->metadata, "sidebar_page", &page_id))
 		ev_window_sidebar_set_current_page (window, page_id);
@@ -7468,7 +7468,7 @@ ev_window_init (EvWindow *ev_window)
 			  G_CALLBACK (ev_window_sidebar_position_change_cb),
 			  ev_window);
 
-	gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), SIDEBAR_DEFAULT_SIZE);
+	gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), 200);
 	gtk_box_pack_start (GTK_BOX (ev_window->priv->main_box), ev_window->priv->hpaned,
 			    TRUE, TRUE, 0);
 	gtk_widget_show (ev_window->priv->hpaned);
