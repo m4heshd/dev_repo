@@ -5148,6 +5148,9 @@ ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 			ev_window->priv->view_box);
 	gtk_widget_show (ev_window->priv->view_box);
 
+    g_settings_get_boolean (ev_window->priv->settings, GS_AUTO_RELOAD))
+    ev_window_reload_document (ev_window, NULL);
+
 }
 
 static void
