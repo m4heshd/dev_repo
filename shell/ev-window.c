@@ -6058,10 +6058,10 @@ static const GtkActionEntry entries[] = {
 	/* File menu */
 	{ "FileOpen", GTK_STOCK_OPEN, N_("_Open…"), "<control>O",
 	  N_("Open an existing document"),
-	  G_CALLBACK (ev_window_cmd_file_open) },
-	{ "PaneLeft", GTK_STOCK_OPEN, N_("_Leftify Pane…"), NULL,
-	  N_("Just for testing"),
 	  G_CALLBACK (ev_window_view_sidebar_left) },
+	/*{ "PaneLeft", GTK_STOCK_OPEN, N_("_Leftify Pane…"), NULL,
+	  N_("Just for testing"),
+	  G_CALLBACK (ev_window_view_sidebar_left) },*/
 	{ "FileOpenCopy", NULL, N_("_View in new window"), "<control>N",
 	  N_("Open a copy of the current document in a new window"),
 	  G_CALLBACK (ev_window_cmd_file_open_copy) },
