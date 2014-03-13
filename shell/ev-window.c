@@ -387,12 +387,13 @@ static gchar *nautilus_sendto = NULL;
 
 G_DEFINE_TYPE (EvWindow, ev_window, GTK_TYPE_APPLICATION_WINDOW)
 
-int w_w,w_h;
-
-
+int w_w,w_w2;
 void get_widget_size(GtkWidget *widget, GtkAllocation *allocation, void *data) {
     w_w = allocation->width;
-    w_h = allocation->height;
+}
+
+void get_widget_size2(GtkWidget *widget, GtkAllocation *allocation, void *data) {
+    w_w2 = allocation->width;
 }
 
 static gdouble
@@ -5172,6 +5173,35 @@ ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 }
 
 static void
+ev_window_view_sidebar_right (GtkAction *action, EvWindow *ev_window)
+{
+    int vb_w=w_w2;
+
+    g_object_ref (ev_window->priv->sidebar);
+    g_object_ref (ev_window->priv->view_box);
+
+
+    gtk_container_remove (GTK_PANED (ev_window->priv->hpaned),ev_window->priv->sidebar);
+    gtk_container_remove (GTK_PANED (ev_window->priv->hpaned),ev_window->priv->view_box);
+
+    gtk_paned_pack2 (GTK_PANED (ev_window->priv->hpaned),
+			 ev_window->priv->sidebar, FALSE, FALSE);
+
+	gtk_widget_show (ev_window->priv->sidebar);
+
+    gtk_paned_add1 (GTK_PANED (ev_window->priv->hpaned),
+			ev_window->priv->view_box);
+
+	gtk_widget_show (ev_window->priv->view_box);
+
+    gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), vb_w);
+    g_object_unref (ev_window->priv->sidebar);
+    g_object_unref (ev_window->priv->view_box);
+
+
+}
+
+static void
 ev_window_sidebar_current_page_changed_cb (EvSidebar  *ev_sidebar,
 					   GParamSpec *pspec,
 					   EvWindow   *ev_window)
@@ -6079,10 +6109,7 @@ static const GtkActionEntry entries[] = {
 	/* File menu */
 	{ "FileOpen", GTK_STOCK_OPEN, N_("_Open…"), "<control>O",
 	  N_("Open an existing document"),
-	  G_CALLBACK (ev_window_view_sidebar_left) },
-	  { "PaneLeft", GTK_STOCK_OPEN, N_("_Leftify Pane…"), NULL,
-	  N_("Just for testing"),
-	  G_CALLBACK (ev_window_view_sidebar_left) },
+	  G_CALLBACK (ev_window_cmd_file_open) },
 	{ "FileOpenCopy", NULL, N_("_View in new window"), "<control>N",
 	  N_("Open a copy of the current document in a new window"),
 	  G_CALLBACK (ev_window_cmd_file_open_copy) },
@@ -6126,6 +6153,12 @@ static const GtkActionEntry entries[] = {
         { "ViewReload", GTK_STOCK_REFRESH, N_("_Reload"), "<control>R",
           N_("Reload the document"),
           G_CALLBACK (ev_window_cmd_view_reload) },
+        { "PaneLeft", NULL, N_("Justify Pane _Left"), NULL,
+        N_("Set Side Pane position to the Left"),
+        G_CALLBACK (ev_window_view_sidebar_left) },
+        { "PaneRight", NULL, N_("_Justify Pane Right"), NULL,
+        N_("Set Side Pane position to the Right"),
+        G_CALLBACK (ev_window_view_sidebar_right) },
 
 	{ "ViewAutoscroll", GTK_STOCK_MEDIA_PLAY, N_("Auto_scroll"), NULL, NULL,
 	  G_CALLBACK (ev_window_cmd_view_autoscroll) },
@@ -7685,8 +7718,9 @@ ev_window_init (EvWindow *ev_window)
 
 	/* Connect to model signals */
 
-	/* Get sizes of the sidebar */
+	/* Get sizes of the widgets */
 	g_signal_connect(ev_window->priv->sidebar, "size-allocate", G_CALLBACK(get_widget_size), NULL);
+    g_signal_connect(ev_window->priv->view_box, "size-allocate", G_CALLBACK(get_widget_size2), NULL);
 
 	g_signal_connect_swapped (ev_window->priv->model,
 				  "page-changed",

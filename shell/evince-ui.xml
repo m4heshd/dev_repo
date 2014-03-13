@@ -1,7 +1,6 @@
 <ui>
   <popup name="ActionMenu" accelerators="true">
     <menuitem name="FileOpenMenu" action="FileOpen"/>
-    <menuitem name="SetPaneLeft" action="PaneLeft"/>
     <menuitem name="FileOpenCopyMenu" action="FileOpenCopy"/>
     <menu name="RecentFilesMenu" action="RecentFiles">
       <placeholder name="RecentFiles"/>
@@ -36,6 +35,8 @@
     <menuitem name="ViewDualMenu" action="ViewDual"/>
     <separator/>
     <menuitem name="ViewSidebarMenu" action="ViewSidebar"/>
+    <menuitem name="SetPaneLeft" action="PaneLeft"/>
+    <menuitem name="SetPaneRight" action="PaneRight"/>
     <separator/>
     <menuitem name="ViewFullscreenMenu" action="ViewFullscreen"/>
     <menuitem name="ViewPresentationMenu" action="ViewPresentation"/>
