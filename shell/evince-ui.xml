@@ -35,8 +35,10 @@
     <menuitem name="ViewDualMenu" action="ViewDual"/>
     <separator/>
     <menuitem name="ViewSidebarMenu" action="ViewSidebar"/>
+    <menu name="SetPanePosition" action="PanePosition">
     <menuitem name="SetPaneLeft" action="PaneLeft"/>
     <menuitem name="SetPaneRight" action="PaneRight"/>
+    </menu>
     <separator/>
     <menuitem name="ViewFullscreenMenu" action="ViewFullscreen"/>
     <menuitem name="ViewPresentationMenu" action="ViewPresentation"/>
