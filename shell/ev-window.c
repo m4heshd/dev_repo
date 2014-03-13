@@ -5135,6 +5135,22 @@ ev_window_view_sidebar_cb (GtkAction *action, EvWindow *ev_window)
 }
 
 static void
+ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
+{
+    gtk_widget_destroy (ev_window->priv->sidebar);
+    gtk_widget_destroy (ev_window->priv->view_box);
+
+    gtk_paned_pack2 (GTK_PANED (ev_window->priv->hpaned),
+			 ev_window->priv->sidebar, FALSE, FALSE);
+	gtk_widget_show (ev_window->priv->sidebar);
+
+    gtk_paned_add1 (GTK_PANED (ev_window->priv->hpaned),
+			ev_window->priv->view_box);
+	gtk_widget_show (ev_window->priv->view_box);
+
+}
+
+static void
 ev_window_sidebar_current_page_changed_cb (EvSidebar  *ev_sidebar,
 					   GParamSpec *pspec,
 					   EvWindow   *ev_window)
@@ -6181,9 +6197,12 @@ static const GtkActionEntry entries[] = {
 /* Toggle items */
 static const GtkToggleActionEntry toggle_entries[] = {
 	/* View Menu */
-        { "ViewSidebar", GTK_STOCK_INDEX, N_("Side _Pane Left"), "F9",
+        { "ViewSidebar", GTK_STOCK_INDEX, N_("Side _Pane"), "F9",
 	  N_("Show or hide the side pane"),
 	  G_CALLBACK (ev_window_view_sidebar_cb), TRUE },
+        { "JustifySidebar", GTK_STOCK_INDEX, N_("Side pane justify Left"), NULL,
+	  N_("Justify the Side pane to Left"),
+	  G_CALLBACK (ev_window_view_sidebar_left), TRUE },
         { "ViewContinuous", EV_STOCK_VIEW_CONTINUOUS, N_("_Continuous"), NULL,
 	  N_("Show the entire document"),
 	  G_CALLBACK (ev_window_cmd_continuous), TRUE },
