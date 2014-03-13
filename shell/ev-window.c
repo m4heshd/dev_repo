@@ -387,17 +387,12 @@ static gchar *nautilus_sendto = NULL;
 
 G_DEFINE_TYPE (EvWindow, ev_window, GTK_TYPE_APPLICATION_WINDOW)
 
-int w_w,w_w2,w_h,w_h2;
+int w_w,w_h;
 
-void getsize_widget_size(GtkWidget *widget, GtkAllocation *allocation, void *data) {
+
+void get_widget_size(GtkWidget *widget, GtkAllocation *allocation, void *data) {
     w_w = allocation->width;
     w_h = allocation->height;
-    printf("w_w = %d w_h = %d\n", w_w, w_h);
-}
-void getsize_widget_size2(GtkWidget *widget, GtkAllocation *allocation, void *data) {
-    w_w2 = allocation->width;
-    w_h2 = allocation->height;
-    printf("w_w2 = %d w_h2 = %d\n", w_w2, w_h2);
 }
 
 static gdouble
@@ -5150,7 +5145,7 @@ ev_window_view_sidebar_cb (GtkAction *action, EvWindow *ev_window)
 static void
 ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 {
-    int vb_w=w_w, vb_h=w_h, sb_w=w_w2, sb_h=w_h2;
+    int sb_w=w_w;
 
     g_object_ref (ev_window->priv->sidebar);
     g_object_ref (ev_window->priv->view_box);
@@ -5161,12 +5156,12 @@ ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 
     gtk_paned_pack1 (GTK_PANED (ev_window->priv->hpaned),
 			 ev_window->priv->sidebar, FALSE, FALSE);
-            //gtk_widget_set_size_request(ev_window->priv->sidebar, sb_w, w_h2);
+
 	gtk_widget_show (ev_window->priv->sidebar);
 
     gtk_paned_add2 (GTK_PANED (ev_window->priv->hpaned),
 			ev_window->priv->view_box);
-			  //gtk_widget_set_size_request(ev_window->priv->view_box, w_w, w_h);
+
 	gtk_widget_show (ev_window->priv->view_box);
 
     gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), sb_w);
@@ -7690,9 +7685,8 @@ ev_window_init (EvWindow *ev_window)
 
 	/* Connect to model signals */
 
-	/* Get sizes of the widgets */
-	g_signal_connect(ev_window->priv->view_box, "size-allocate", G_CALLBACK(getsize_widget_size), NULL);
-	g_signal_connect(ev_window->priv->sidebar, "size-allocate", G_CALLBACK(getsize_widget_size2), NULL);
+	/* Get sizes of the sidebar */
+	g_signal_connect(ev_window->priv->sidebar, "size-allocate", G_CALLBACK(get_widget_size), NULL);
 
 	g_signal_connect_swapped (ev_window->priv->model,
 				  "page-changed",
