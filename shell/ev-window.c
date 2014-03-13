@@ -392,10 +392,12 @@ int w_w,w_w2,w_h,w_h2;
 void getsize_widget_size(GtkWidget *widget, GtkAllocation *allocation, void *data) {
     w_w = allocation->width;
     w_h = allocation->height;
+    printf("w_w = %d w_h = %d\n", w_w, w_h);
 }
 void getsize_widget_size2(GtkWidget *widget, GtkAllocation *allocation, void *data) {
     w_w2 = allocation->width;
     w_h2 = allocation->height;
+    printf("w_w2 = %d w_h2 = %d\n", w_w2, w_h2);
 }
 
 static gdouble
