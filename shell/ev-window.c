@@ -7545,7 +7545,7 @@ ev_window_init (EvWindow *ev_window)
 			  G_CALLBACK (ev_window_sidebar_position_change_cb),
 			  ev_window);
 
-	gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), 0);
+	gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), SIDEBAR_DEFAULT_SIZE);
 	gtk_box_pack_start (GTK_BOX (ev_window->priv->main_box), ev_window->priv->hpaned,
 			    TRUE, TRUE, 0);
 	gtk_widget_show (ev_window->priv->hpaned);
@@ -7553,7 +7553,7 @@ ev_window_init (EvWindow *ev_window)
 	ev_window->priv->sidebar = ev_sidebar_new ();
 	ev_sidebar_set_model (EV_SIDEBAR (ev_window->priv->sidebar),
 			      ev_window->priv->model);
-	gtk_paned_pack2 (GTK_PANED (ev_window->priv->hpaned),
+	gtk_paned_pack1 (GTK_PANED (ev_window->priv->hpaned),
 			 ev_window->priv->sidebar, FALSE, FALSE);
 	gtk_widget_show (ev_window->priv->sidebar);
 
@@ -7655,7 +7655,7 @@ ev_window_init (EvWindow *ev_window)
 			    TRUE, TRUE, 0);
 	gtk_widget_show (overlay);
 
-	gtk_paned_add1 (GTK_PANED (ev_window->priv->hpaned),
+	gtk_paned_add2 (GTK_PANED (ev_window->priv->hpaned),
 			ev_window->priv->view_box);
 	gtk_widget_show (ev_window->priv->view_box);
 
