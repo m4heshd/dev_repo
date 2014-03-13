@@ -1107,7 +1107,7 @@ setup_sidebar_from_metadata (EvWindow *window)
 		return;
 
 	if (ev_metadata_get_int (window->priv->metadata, "sidebar_size", &sidebar_size))
-		gtk_paned_set_position (GTK_PANED (window->priv->hpaned), sidebar_size);
+		gtk_paned_set_position (GTK_PANED (window->priv->hpaned), 0);
 
 	if (ev_metadata_get_string (window->priv->metadata, "sidebar_page", &page_id))
 		ev_window_sidebar_set_current_page (window, page_id);
