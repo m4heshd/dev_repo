@@ -5150,6 +5150,8 @@ ev_window_view_sidebar_cb (GtkAction *action, EvWindow *ev_window)
 static void
 ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 {
+    int vb_w=w_w, vb_h=w_h, sb_w=w_w2, sb_h=w_h2;
+
     g_object_ref (ev_window->priv->sidebar);
     g_object_ref (ev_window->priv->view_box);
 
@@ -5159,14 +5161,15 @@ ev_window_view_sidebar_left (GtkAction *action, EvWindow *ev_window)
 
     gtk_paned_pack1 (GTK_PANED (ev_window->priv->hpaned),
 			 ev_window->priv->sidebar, FALSE, FALSE);
-            gtk_widget_set_size_request(ev_window->priv->sidebar, w_w2, w_h2);
+            //gtk_widget_set_size_request(ev_window->priv->sidebar, sb_w, w_h2);
 	gtk_widget_show (ev_window->priv->sidebar);
 
     gtk_paned_add2 (GTK_PANED (ev_window->priv->hpaned),
 			ev_window->priv->view_box);
-			  gtk_widget_set_size_request(ev_window->priv->view_box, w_w, w_h);
+			  //gtk_widget_set_size_request(ev_window->priv->view_box, w_w, w_h);
 	gtk_widget_show (ev_window->priv->view_box);
 
+    gtk_paned_set_position (GTK_PANED (ev_window->priv->hpaned), sb_w);
     g_object_unref (ev_window->priv->sidebar);
     g_object_unref (ev_window->priv->view_box);
 
